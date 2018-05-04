@@ -1,7 +1,11 @@
 # Aula 05 - Iluminação
 
-O projeto contém dois shaders chamados phong.vert e phong.frag. Esses shaders são basicamente uma cópia dos shaders 
-básicos sem cor da aula passada. Na classe MeshFactory, o cubo é criado apenas com a posição e índices.
+O projeto contém dois shaders chamados 
+[phong.vert](https://github.com/progjogos3d/opengl05-01/blob/master/src/br/pucpr/resource/phong.vert) e 
+[phong.frag](https://github.com/progjogos3d/opengl05-01/blob/master/src/br/pucpr/resource/phong.frag). 
+Esses shaders são basicamente uma cópia dos shaders básicos sem cor da aula passada. Na classe 
+[MeshFactory](https://github.com/progjogos3d/opengl05-01/blob/master/src/br/pucpr/cg/MeshFactory.java), 
+o cubo é criado apenas com a posição e índices.
 
 Ao rodar esse projeto, uma tela completamente preta deve aparecer. Isso acontece pois o nosso fragment shader ainda
 retorna somente a cor preta, já que nada está iluminado.

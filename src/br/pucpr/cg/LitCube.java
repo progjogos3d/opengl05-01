@@ -1,6 +1,9 @@
 package br.pucpr.cg;
 
-import br.pucpr.mage.*;
+import br.pucpr.mage.Keyboard;
+import br.pucpr.mage.Mesh;
+import br.pucpr.mage.Scene;
+import br.pucpr.mage.Window;
 import org.joml.Matrix4f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -50,11 +53,11 @@ public class LitCube implements Scene {
 public void draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    Shader shader = mesh.getShader();
-    shader.bind()
-        .setUniform("uProjection", camera.getProjectionMatrix())
-        .setUniform("uView", camera.getViewMatrix());
-    shader.unbind();
+    mesh.getShader()
+        .bind()
+            .setUniform("uProjection", camera.getProjectionMatrix())
+            .setUniform("uView", camera.getViewMatrix())
+        .unbind();
 
     mesh.setUniform("uWorld", new Matrix4f().rotateY(angleY).rotateX(angleX));
     mesh.draw();

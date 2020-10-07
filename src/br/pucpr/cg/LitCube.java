@@ -1,6 +1,7 @@
 package br.pucpr.cg;
 
 import br.pucpr.mage.*;
+import br.pucpr.mage.camera.Camera;
 import br.pucpr.mage.camera.CameraFPS;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;

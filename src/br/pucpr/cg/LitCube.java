@@ -1,10 +1,9 @@
 package br.pucpr.cg;
 
-import br.pucpr.mage.Keyboard;
-import br.pucpr.mage.Mesh;
-import br.pucpr.mage.Scene;
-import br.pucpr.mage.Window;
+import br.pucpr.mage.*;
+import br.pucpr.mage.camera.CameraFPS;
 import org.joml.Matrix4f;
+import org.lwjgl.glfw.GLFW;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -13,7 +12,8 @@ public class LitCube implements Scene {
     private Keyboard keys = Keyboard.getInstance();
 
     private static final float SPEED = (float) Math.toRadians(180);
-    
+
+    private Shader shader;
     private Mesh mesh;
     private float angleX = 0.0f;
     private float angleY = 0.5f;
@@ -25,7 +25,8 @@ public class LitCube implements Scene {
         glEnable(GL_CULL_FACE);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        mesh = MeshFactory.createCube();
+        shader = Shader.loadProgram("phong");
+        mesh = MeshFactory.createCube(shader);
         camera.getPosition().y = 1.0f;
     }
 
@@ -41,7 +42,7 @@ public class LitCube implements Scene {
         } else if (keys.isDown(GLFW_KEY_D)) {
             angleY -= SPEED * secs;
         }
-        
+
         if (keys.isDown(GLFW_KEY_W)) {
             angleX += SPEED * secs;
         } else if (keys.isDown(GLFW_KEY_S)) {
@@ -52,15 +53,13 @@ public class LitCube implements Scene {
 @Override
 public void draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    mesh.getShader()
-        .bind()
-            .setUniform("uProjection", camera.getProjectionMatrix())
-            .setUniform("uView", camera.getViewMatrix())
-        .unbind();
+
+    shader.bind();
+    camera.apply(shader);
+    shader.unbind();
 
     mesh.setUniform("uWorld", new Matrix4f().rotateY(angleY).rotateX(angleX));
-    mesh.draw();
+    mesh.draw(shader);
 }
 
     @Override

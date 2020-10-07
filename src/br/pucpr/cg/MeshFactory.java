@@ -2,10 +2,11 @@ package br.pucpr.cg;
 
 import br.pucpr.mage.Mesh;
 import br.pucpr.mage.MeshBuilder;
+import br.pucpr.mage.Shader;
 
 public class MeshFactory {
-    public static Mesh createCube() {
-        return new MeshBuilder()
+    public static Mesh createCube(Shader shader) {
+        return new MeshBuilder(shader)
         .addVector3fAttribute("aPosition", 
             //Face próxima
              -0.5f,  0.5f,  0.5f,  //0
@@ -56,7 +57,6 @@ public class MeshFactory {
             //Face esquerda
              20, 23, 22,
              20, 21, 23)
-        .loadShader("/br/pucpr/resource/phong")
         .create();        
     }
     

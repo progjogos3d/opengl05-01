@@ -2,9 +2,7 @@ package br.pucpr.cg;
 
 import br.pucpr.mage.*;
 import br.pucpr.mage.camera.Camera;
-import br.pucpr.mage.camera.CameraFPS;
 import org.joml.Matrix4f;
-import org.lwjgl.glfw.GLFW;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -19,7 +17,7 @@ public class LitCube implements Scene {
     private float angleX = 0.0f;
     private float angleY = 0.5f;
     private Camera camera = new Camera();
-    
+
     @Override
     public void init() {
         glEnable(GL_DEPTH_TEST);
@@ -51,17 +49,17 @@ public class LitCube implements Scene {
         }
     }
 
-@Override
-public void draw() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    @Override
+    public void draw() {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    shader.bind();
-    camera.apply(shader);
-    shader.unbind();
+        shader.bind();
+            camera.apply(shader);
+        shader.unbind();
 
-    mesh.setUniform("uWorld", new Matrix4f().rotateY(angleY).rotateX(angleX));
-    mesh.draw(shader);
-}
+        mesh.setUniform("uWorld", new Matrix4f().rotateY(angleY).rotateX(angleX));
+        mesh.draw(shader);
+    }
 
     @Override
     public void deinit() {
